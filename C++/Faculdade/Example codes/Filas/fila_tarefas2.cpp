@@ -5,7 +5,7 @@
 using namespace std;
 
 struct No{
-   int Info;
+   char Info;
    No *Lig;
 };
 
@@ -27,7 +27,7 @@ bool FilaVazia(Fila F){
    return !F.Nro;
 }
 
-void InsereFila(Fila& F, int Novo){
+void InsereFila(Fila& F, char Novo){
    NoPtr P = new No;
    P->Info = Novo;
    P->Lig = NULL;
@@ -40,7 +40,7 @@ void InsereFila(Fila& F, int Novo){
    F.Nro++;
 }
 
-bool RetiraFila(Fila& F, int& Valor){
+bool RetiraFila(Fila& F, char& Valor){
    if (FilaVazia(F))
        return false;
    else {
@@ -55,17 +55,6 @@ bool RetiraFila(Fila& F, int& Valor){
    return true;
 }
 
-void RemoveNegativo(Fila& F){
-   int valor;
-   int tam = F.Nro;
-   for(int i = 1; i <= tam; i++){
-      RetiraFila(F, valor);
-      if(valor >= 0){
-         InsereFila(F, valor);
-      }
-   }   
-} 
-      
 NoPtr Primeiro(Fila& F){
    NoPtr P = F.Com;
    return P;
@@ -73,33 +62,31 @@ NoPtr Primeiro(Fila& F){
 
 int main (){
 
+   char dado;
    Fila F;
    IniciaFila(F);
    
-   if(FilaVazia(F))
-      cout << "Fila Vazia " << endl;
-   else cout << "Fila nao vazia " << endl;
+   // if(FilaVazia(F))
+   //    cout << "Fila Vazia " << endl;
+   // else cout << "Fila nao vazia " << endl;
 
-   InsereFila (F, 5);
-   InsereFila (F, -3);
-   InsereFila (F, 9);
-   InsereFila (F, -5);
-   InsereFila (F, 3);
-   InsereFila (F, -7);
+   InsereFila (F, 'a');
+   InsereFila (F, 'b');
+   RetiraFila (F, dado);
+   InsereFila (F, 'c');
+   InsereFila (F, 'e');
+   RetiraFila (F, dado);
+   
+   // if(FilaVazia(F))
+   //    cout << "Fila Vazia " << endl;
+   // else cout << "Fila nao vazia " << endl;
 
-   if(FilaVazia(F))
-      cout << "Fila Vazia " << endl;
-   else cout << "Fila nao vazia " << endl;
-
-   RemoveNegativo(F);
-
-   int valor;
-   while(RetiraFila(F,valor))
-      cout << "Valor retirado da fila: "<< valor << endl;
+   while(RetiraFila(F, dado))
+      cout << "Valor retirado da fila: "<< dado << endl;
  
-   if(FilaVazia(F))
-      cout << "Fila Vazia " << endl;
-   else cout << "Fila nao vazia " << endl;
+   // if(FilaVazia(F))
+   //    cout << "Fila Vazia " << endl;
+   // else cout << "Fila nao vazia " << endl;
  
  return 0;
 }

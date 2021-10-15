@@ -73,6 +73,44 @@ Fila Concatena(Fila& F1, Fila& F2){
     return F3;
 }
 
+void RemoveNegativo(Fila& F){
+   int valor;
+   int tam = F.Nro;
+   for(int i = 1; i <= tam; i++){
+      RetiraFila(F, valor);
+      if(valor >= 0){
+         InsereFila(F, valor);
+      }
+   }   
+}
+
+float MediaFila(Fila& F){
+   float soma = 0;
+   int valor;
+   int tam = F.Nro;
+   for(int i = 0; i < tam; i++){
+      RetiraFila(F, valor);
+      soma = soma + valor;
+      InsereFila(F, valor); 
+   }
+   cout << (soma/tam) << endl;
+   return (soma/tam);
+}
+
+void InverteFila(Fila& F){
+    Fila F3;
+    IniciaFila(F3);
+    int tam = F.Nro;
+    int valor;
+    for(int i = 0; i < tam; i++){
+        RetiraFila(F, valor);
+        InsereFila(F3, valor);
+        InsereFila(F, valor);
+    }
+    
+    
+}
+
 NoPtr Primeiro(Fila& F){
    NoPtr P = F.Com;
    return P;
@@ -80,36 +118,43 @@ NoPtr Primeiro(Fila& F){
 
 int main (){
 
-   Fila F1, F2, F3;
+   Fila F1, F2;
    IniciaFila(F1);
    IniciaFila(F2);
-   IniciaFila(F3);
+//   IniciaFila(F3);
    
 //    if(FilaVazia(F))
 //       cout << "Fila Vazia " << endl;
 //    else cout << "Fila nao vazia " << endl;
 
+   InsereFila (F1, 3);
+   InsereFila (F1, 8);
+   InsereFila (F1, 4);
    InsereFila (F1, 5);
-   InsereFila (F1, -3);
-   InsereFila (F1, 9);
+   InsereFila (F1, 2);
+   InsereFila (F1, 1);
 
-   InsereFila (F2, -5);
+   InsereFila (F2, 5);
    InsereFila (F2, 3);
-   InsereFila (F2, -7);
+   InsereFila (F2, 7);
 
-   F3 = Concatena(F1, F2);
+//   F3 = Concatena(F1, F2);
+//   RemoveNegativo(F1);
+//   RemoveNegativo(F2);
+   MediaFila(F1);
+   MediaFila(F2);
 
 //    if(FilaVazia(F))
 //       cout << "Fila Vazia " << endl;
 //    else cout << "Fila nao vazia " << endl;
 
-   int valor;
-    while(RetiraFila(F3,valor))
+    int valor;
+     while(RetiraFila(F1,valor))
        cout << "Valor retirado da fila: "<< valor << endl;
  
-    if(FilaVazia(F3))
-       cout << "Fila Vazia " << endl;
-    else cout << "Fila nao vazia " << endl;
+   //  if(FilaVazia(F3))
+   //     cout << "Fila Vazia " << endl;
+   //  else cout << "Fila nao vazia " << endl;
  
  return 0;
 }

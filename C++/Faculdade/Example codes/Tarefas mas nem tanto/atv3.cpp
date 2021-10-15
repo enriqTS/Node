@@ -1,19 +1,22 @@
+// Implementacao de Fila Utilizando Alocacao Dinamica
+
 #include <iostream>
+
 using namespace std;
 
 struct No
 {
-    int valor;
+    int Info;
     No *Lig;
 };
 
-typedef No *noPtr;
+typedef No *NoPtr;
 
 struct Fila
 {
-    noPtr Com;
+    NoPtr Com;
     int Nro;
-    noPtr Fim;
+    NoPtr Fim;
 };
 
 void IniciaFila(Fila &F)
@@ -25,22 +28,16 @@ void IniciaFila(Fila &F)
 
 bool FilaVazia(Fila F)
 {
-    if (F.Nro == 0)
-    {
-        return true;
-    }
-    return false;
+    return !F.Nro;
 }
 
 void InsereFila(Fila &F, int Novo)
 {
-    noPtr P = new No;
-    P->valor = Novo;
+    NoPtr P = new No;
+    P->Info = Novo;
     P->Lig = NULL;
     if (F.Nro == 0)
-    {
         F.Com = F.Fim = P;
-    }
     else
     {
         F.Fim->Lig = P;
@@ -49,80 +46,141 @@ void InsereFila(Fila &F, int Novo)
     F.Nro++;
 }
 
-bool RetiraFila(Fila &F, int &valor)
+bool RetiraFila(Fila &F, int &Valor)
 {
     if (FilaVazia(F))
-    {
         return false;
-    }
     else
     {
-        noPtr P = F.Com;
-        valor = P->valor;
+        NoPtr P = F.Com;
+        Valor = P->Info;
         F.Com = P->Lig;
         F.Nro--;
         if (F.Nro == 0)
-        {
             F.Fim = NULL;
-        }
         delete P;
     }
     return true;
 }
 
+NoPtr Primeiro(Fila &F)
+{
+    NoPtr P = F.Com;
+    return P;
+}
+
 Fila SomaFilas(Fila F1, Fila F2)
 {
+    NoPtr Pf1 = new No;
+    NoPtr Pf2 = new No;
+
     Fila Soma;
     IniciaFila(Soma);
-    int valor1 = 0, valor2 = 0;
 
-    while (!(FilaVazia(F1) && FilaVazia(F2)))
+    Pf1->Info = F1.Com->Info;
+    Pf1->Lig = F1.Com;
+
+    Pf2->Info = F2.Com->Info;
+    Pf2->Lig = F2.Com;
+
+    Pf1 = Pf1->Lig;
+    Pf2 = Pf2->Lig;
+
+    while (Pf1 != NULL || Pf2 != NULL)
     {
-        bool f1 = RetiraFila(F1, valor1);
-        bool f2 = RetiraFila(F2, valor2);
 
-        if (!f1 && f2)
+        if (Pf1 != NULL && Pf2 != NULL)
         {
-            InsereFila(Soma, valor2);
+            int soma = Pf1->Info + Pf2->Info;
+            InsereFila(Soma, soma);
         }
-        if (!f2 && f1)
+        else if (!(Pf1 != NULL) && Pf2 != NULL)
         {
-            InsereFila(Soma, valor1);
+            InsereFila(Soma, Pf2->Info);
         }
-        if (f2 && f1)
+        else if (Pf1 != NULL && !(Pf2 != NULL))
         {
-            int valor3 = valor1 + valor2;
-            InsereFila(Soma, valor3);
+            InsereFila(Soma, Pf1->Info);
+        }
+
+        if (Pf1 != NULL)
+        {
+            Pf1 = Pf1->Lig;
+        }
+        if (Pf2 != NULL)
+        {
+            Pf2 = Pf2->Lig;
         }
     }
     return Soma;
 }
 
+bool findOne(Fila F, int value)
+{
+    if (!FilaVazia(F))
+    {
+        NoPtr P = new No;
+        P->Info = F.Com->Info;
+        P->Lig = F.Com;
+        while (P != NULL)
+        {
+            if (P->Info == value)
+            {
+                return true;
+            }
+            P = P->Lig;
+        }
+        return false;
+    }
+    return false;
+}
+
 int main()
 {
-    Fila F1;
+
+    Fila F1, F2, Soma;
+
     IniciaFila(F1);
-
-    InsereFila(F1, 4);
-    InsereFila(F1, 1);
-    InsereFila(F1, 4);
-    InsereFila(F1, 1);
-    InsereFila(F1, 1);
-    InsereFila(F1, 1);
-
-    Fila F2;
     IniciaFila(F2);
+    IniciaFila(Soma);
 
-    InsereFila(F2, 5);
-    InsereFila(F2, 4);
-    InsereFila(F2, 1);
+    InsereFila(F1, 2);
+    InsereFila(F1, 3);
+    InsereFila(F1, 5);
+    InsereFila(F2, -1);
+    InsereFila(F2, -5);
+    InsereFila(F2, 10);
+    InsereFila(F2, 8);
 
-    Fila F3 = SomaFilas(F1, F2);
-
-    int valor3;
-    while (RetiraFila(F3, valor3))
+    if (findOne(F1, 'c'))
     {
-        cout << "Soma: " << valor3 << endl;
+        cout << "Achou" << endl;
+    }
+
+    if (!FilaVazia(F1) && !FilaVazia(F2))
+    {
+        Soma = SomaFilas(F1, F2);
+    }
+
+    int valor;
+    while (RetiraFila(F1, valor))
+        cout << valor << " ";
+
+    cout << endl
+         << " + " << endl;
+
+    while (RetiraFila(F2, valor))
+        cout << valor << " ";
+
+    cout << endl
+         << " = " << endl;
+
+    if (!FilaVazia(Soma))
+    {
+        while (RetiraFila(Soma, valor))
+        {
+            cout << valor << " ";
+        }
     }
 
     return 0;
