@@ -63,6 +63,37 @@ void mostra (Arvore& a, int n) {
   }
 }
 
+int ContaNos(Arvore A){
+   if(A!=NULL)
+      return 1 + ContaNos(A->esq) + ContaNos(A->dir);
+   return 0;   
+}
+
+int SomaNos(Arvore A){
+   if(A!=NULL)
+      return A->Info + SomaNos(A->esq) + SomaNos(A->dir);
+   return 0;   
+}
+
+int Maior(Arvore A){
+   if(A->dir)
+      return Maior(A->dir);
+   else  
+      return A->Info;   
+}
+
+bool Busca(Arvore A, int Info){
+   if(A){
+      if(A->Info == Info)
+         return true;
+      else
+         if(A->Info < Info)
+            return Busca(A->dir, Info);
+         else  
+            return Busca(A->esq, Info);
+      return false;      
+   }
+}
 
 int main () {
 
