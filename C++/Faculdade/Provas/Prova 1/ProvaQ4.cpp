@@ -9,7 +9,6 @@ struct No {
 
 typedef struct No *NoPtr;
 
-
 void InsereLista (NoPtr& L, int Novo) {
   if (L == NULL) {  // INSERCAO DO PRIMEIRO NO
         L = new No;
