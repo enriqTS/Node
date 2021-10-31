@@ -97,18 +97,6 @@ bool Busca(Arvore A, int Info){
 
 int main () {
 
-   Arvore te = NULL;
-
-   cout << "Monte uma árvore: Digite letras (nós) e pontos (null) " << endl;
-
-   constroiArvore(te);
-
-   mostra (te, 0);
-
-   cout << "\nMostrando arvore com pontos - pre-ordem\n" << endl;
-   preordem(te);
-
-
    Arvore t = NULL;
 
    insereAbbRec(t, 'b');

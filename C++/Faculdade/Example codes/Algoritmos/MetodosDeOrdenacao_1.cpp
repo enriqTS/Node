@@ -24,12 +24,12 @@ int main (){
    cout << "Digite uma string: ";
    cin.getline(s,80);
 
-   bubble(s, strlen(s));
+   //bubble(s, strlen(s));
    //shaker(s, strlen(s));
    //selection (s, strlen(s));
    //insertion (s, strlen(s));
    //shell (s, strlen(s));
-   //quick(s, strlen(s));
+   quick(s, strlen(s));
    //heapsort2(s,strlen(s));
    //mergesort(0, strlen(s), s);
    

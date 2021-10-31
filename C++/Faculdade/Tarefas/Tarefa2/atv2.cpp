@@ -1,36 +1,34 @@
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
-struct No {     // DEFINICAO DO NO
-     char Info; // INFORMACAO ARMAZENADA NO NO
-     No* esq;   // PONTEIRO PARA A SUB-ARVORE ESQUERDA
-     No* dir;   // PONTEIRO PARA A SUB-ARVORE DIREITA
-};
+struct No {     
+     int Info; 
+     No* esq;   
+     No* dir;   
+     };
 
-typedef No* Arvore; // DEFINICAO DO TIPO ARVORE
+typedef No* Arvore; 
 
-
-// INSERCAO DE UM NO NA ARVORE - RECURSIVA
-void insereAbbRec (Arvore& A, char Info){
-     if(A == NULL){ // SE O PONTEIRO A E NULO, INSERIR UM NOVO NO
+void insereAbbRec (Arvore& A, int Info){
+     if(A == NULL){ 
          A = new No;
          A->Info = Info;
          A->esq = A->dir = NULL;
       }
       else if(Info > A->Info)
-              insereAbbRec(A->dir, Info); //INSERINDO NO RAMO DIREITO
+              insereAbbRec(A->dir, Info); 
            else
-              insereAbbRec(A->esq, Info); //INSERINDO NO RAMO ESQUERDO
+              insereAbbRec(A->esq, Info); 
 }
 
-// CONSTRUCAO DE UMA ARVORE BINARIA
 void constroiArvore(Arvore& A){
-     char Info;
-     cin >> Info;  // LE A INFORMACAO DIGITADA
-     if(Info == '.')  // SE FOR UM PONTO, INSERE NULO PARA O PONTEIRO
+     int Info;
+     cin >> Info;  
+     if(Info == '.')  
         A = NULL;
-     else{           // CASO CONTRARIO, ALOCA O NOVO NO E CHAMA RECURSIVO PARA ESQ E DIR
+     else{           
          A = new No;
          A->Info = Info;
          constroiArvore(A->esq);
@@ -38,110 +36,34 @@ void constroiArvore(Arvore& A){
       }
 }
 
-// CAMINHAMENTO EM PRE-ORDEM
-void preordem (Arvore A) {
-      if(A!=NULL) {
-		cout << A->Info; // PROCESSA O NO
-        preordem (A->esq);   // CAMINHA PARA ESQUERDA
-        preordem (A->dir);   // CAMINHA PARA DIREITA
-      }
-      else cout << "." ;
+void PercursoLarg(Arvore A){
+   if(A == NULL) return;
+   queue<No*> F1;
+   F1.push(A);
+   while(!F1.empty()){
+      No* Atual = F1.front();
+      cout << "Atual: " << Atual->Info << endl;
+      if(Atual->esq != NULL) 
+         F1.push(Atual->esq);
+      if(Atual->dir != NULL)
+         F1.push(Atual->dir);
+      F1.pop();   
    }
-
-// APRESENTA A ESTRUTURA DA ARVORE
-void mostra (Arvore& a, int n) {
-  if (a) {
-     int i;
-     mostra (a->dir, n+1);
-     for (i = 0; i < n; i++) cout << "    ";
-     cout << a->Info << endl;
-     mostra (a->esq, n+1);
-  }
-}
-
-int ContaNos(Arvore A){
-   if(A!=NULL)
-      return 1 + ContaNos(A->esq) + ContaNos(A->dir);
-   return 0;   
-}
-
-int SomaNos(Arvore A){
-   if(A!=NULL)
-      return A->Info + SomaNos(A->esq) + SomaNos(A->dir);
-   return 0;   
-}
-
-int Maior(Arvore A){
-   if(A->dir)
-      return Maior(A->dir);
-   else  
-      return A->Info;   
-}
-
-bool Busca(Arvore A, int Info){
-   if(A){
-      if(A->Info == Info)
-         return true;
-      else
-         if(A->Info < Info)
-            return Busca(A->dir, Info);
-         else  
-            return Busca(A->esq, Info);
-      return false;      
-   }
-}
-
-struct No2{
-   int Info;
-   No2 *Lig;
-};
-
-typedef No2 *NoPtr2;
-
-struct Fila{
-   NoPtr2 Com;
-   int Nro;
-   NoPtr2 Fim;
-};
-
-void IniciaFila(Fila& F){
-   F.Nro = 0;
-   F.Com = NULL;
-   F.Fim = NULL;
-}
-
-bool FilaVazia(Fila F){
-   return !F.Nro;
-}
-
-void InsereFila(Fila& F, int Novo){
-   NoPtr2 P = new No2;
-   P->Info = Novo;
-   P->Lig = NULL;
-   if (F.Nro == 0)
-        F.Com = F.Fim = P;
-   else {
-         F.Fim->Lig = P;
-         F.Fim = P;
-   }
-   F.Nro++;
-}
-
-bool RetiraFila(Fila& F, int& Valor){
-   if (FilaVazia(F))
-       return false;
-   else {
-       NoPtr2 P = F.Com;
-       Valor = P->Info;
-       F.Com = P->Lig; 
-       F.Nro--;
-       if (F.Nro == 0)
-           F.Fim = NULL;
-      delete P;
-   }
-   return true;
 }
 
 int main(){
     
+   Arvore t = NULL;
+  
+   insereAbbRec(t, 30);
+   insereAbbRec(t, 20);
+   insereAbbRec(t, 25);
+   insereAbbRec(t, 15);
+   insereAbbRec(t, 40);
+   insereAbbRec(t, 35);
+   insereAbbRec(t, 45);
+   insereAbbRec(t, 47);
+
+   PercursoLarg(t);
+
 }
