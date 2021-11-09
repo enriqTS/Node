@@ -20,17 +20,18 @@ void heapsort2 (char* v, int count);
 
 
 int main (){
-   char s[80];
-   cout << "Digite uma string: ";
-   cin.getline(s,80);
+   char s[80] = "Casca de Ovo";
+   
+   //cout << "Digite uma string: ";
+   //cin.getline(s,80);
 
    //bubble(s, strlen(s));
    //shaker(s, strlen(s));
    //selection (s, strlen(s));
    //insertion (s, strlen(s));
    //shell (s, strlen(s));
-   quick(s, strlen(s));
-   //heapsort2(s,strlen(s));
+   //quick(s, strlen(s));
+   heapsort2(s,strlen(s));
    //mergesort(0, strlen(s), s);
    
    cout << "String ordenada : " << s << endl;
