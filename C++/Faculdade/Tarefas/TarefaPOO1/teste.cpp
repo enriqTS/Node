@@ -5,8 +5,8 @@ class Fracao{
     private:
         int denominador;
         int numerador;
-        int mmc;
-        int mdc;
+        static int mmc;
+        static int mdc;
         int findmdc(Fracao&, Fracao&);
         int findmmc(Fracao&, Fracao&);
     public:
@@ -19,6 +19,7 @@ class Fracao{
         friend Fracao operator - (Fracao&, Fracao&);
         int getNumerador();
         int getDenominador();
+        Fracao NormFrac(Fracao&);
 };
 
 Fracao::Fracao(int numerador, int denominador){
@@ -34,22 +35,23 @@ int Fracao :: findmdc(Fracao& n1, Fracao& n2){
     int mdc;
     for(int i=1; i <= n1.denominador && i <= n2.denominador; i++){
         if(n1.denominador%i == 0 && n2.denominador%i == 0){
-           this->mdc = i;
+           mdc = i;
         }
     }
-    return this->mdc;
+    return mdc;
 }
 
 int Fracao :: findmmc(Fracao& n1, Fracao& n2){
-    this->mmc = (n1.denominador * n2.denominador)/this->findmdc(n1,n2);
-    return this->mmc;
+    int mmc;
+    mmc = (n1.denominador * n2.denominador)/this->findmdc(n1,n2);
+    return mmc;
 }
 
 Fracao operator + (Fracao& n1, Fracao& n2){
     Fracao soma;
     soma.findmmc(n1,n2);
     soma.numerador = (n1.numerador * (soma.mmc/n1.denominador)) + (n2.numerador * (soma.mmc/n2.denominador));
-    soma.denominador = soma.mmc;
+    soma.denominador = soma.mmc; // Ou n2.mdc, os dois são iguais(Se o programa funcionar)
     return soma;
 }
 
@@ -57,7 +59,7 @@ Fracao operator - (Fracao& n1, Fracao& n2){
     Fracao sub;
     sub.findmmc(n1,n2);
     sub.numerador = (n1.numerador * (sub.mmc/n1.denominador)) - (n2.numerador * (sub.mmc/n2.denominador));
-    sub.denominador = sub.mmc; 
+    sub.denominador = sub.mmc; // Ou n2.mdc, os dois são iguais(Se o programa funcionar)
     return sub;
 }
 
@@ -80,35 +82,26 @@ int Fracao :: getDenominador(){
     return denominador;
 }
 
+Fracao Fracao :: NormFrac(Fracao& F){
+    F.numerador = F.numerador/F.mdc;
+    F.denominador = F.denominador/F.mdc;
+}
+
+
 int main(){
-    int numerador;
-    int denominador;
     
     Fracao F1;
     Fracao F2;
-    
-    cout << "Digite o numerador(Apenas numeros inteiros): " << endl;
-    cin >> numerador;
-    cout << "Digite o denominador(Apenas numeros inteiros): " << endl;
-    cin >> denominador;
-    
-    Fracao F3(numerador, denominador);
-    
-    cout << "Digite o numerador(Apenas numeros inteiros): " << endl;
-    cin >> numerador;
-    cout << "Digite o denominador(Apenas numeros inteiros): " << endl;
-    cin >> denominador;
 
-    Fracao F4(numerador, denominador);
+    Fracao F3(3, 5);
+    
+    Fracao F4(2, 8);
 
     F1 = F3 + F4;
     F2 = F3 - F4;
-
-    numerador = F1.getNumerador();
-    denominador = F1.getDenominador();
-
-    cout << "Numerador(get): " << numerador << endl;
-    cout << "Denominador(get): " <<  denominador << endl;
+    
+    F1.NormFrac(F1);
+    F2.NormFrac(F2);
 
     F1.Imprime();
     F1.ImprimeNumerador();
@@ -120,4 +113,3 @@ int main(){
 
     return 0;
 }
-
