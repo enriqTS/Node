@@ -31,23 +31,23 @@ int main(){
 
     cout << "\nFila vazia. Nao pode remover mais itens\n";
 
-    Fila < int > F1 ( 5 );
-    F1.push(1);
-    F1.push(5);
-    F1.push(8);
-    F1.push(3);
-    F1.push(2);
+    // Fila < int > F1 ( 5 );
+    // F1.push(1);
+    // F1.push(5);
+    // F1.push(8);
+    // F1.push(3);
+    // F1.push(2);
 
-    Fila < int > F2 ( 8 );
-    F2.push(1);
-    F2.push(5);
-    F2.push(8);
-    F2.push(3);
-    F2.push(2); 
+    // Fila < int > F2 ( 8 );
+    // F2.push(1);
+    // F2.push(5);
+    // F2.push(8);
+    // F2.push(3);
+    // F2.push(2); 
 
-    Fila < int > F3;
+    // Fila < int > F3;
 
-    F3 = F1 + F2;    
+    // F3 = F1 + F2;    
 
     return 0;
 }
