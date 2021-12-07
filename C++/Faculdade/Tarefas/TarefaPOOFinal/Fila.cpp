@@ -1,5 +1,5 @@
 #include<iostream>
-#include "Fila.h"
+#include "Fila (1).h"
 
 using std::cout;
 using std::endl;
@@ -55,7 +55,16 @@ int main(){
 
     int value;
     while ( F3.pop( value ) )
-    cout << value << ' ';  
+    cout << value << ' '; 
+    cout << endl; 
+
+    while ( F1.pop( value ) )
+    cout << value << ' ';
+    cout << endl;  
+
+    while ( F2.pop( value ) )
+    cout << value << ' ';
+    cout << endl;
 
     return 0;
 }

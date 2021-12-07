@@ -11,19 +11,20 @@ public:
    bool push( const T& ); 
    bool pop( T& );
    bool isEmpty(){  
-         return Fim == -1 || Com == size - 1;
+         return Tam == 0;
    }
    bool isFull(){
-      return Fim == size - 1;
+      return Tam == size;
    }
    int Fsize(){
-      return size;
+      return Tam;
    }
    Fila<T> operator+(Fila<T>& F);
    inline Fila<T>& operator=(Fila<T>);
        
 private:
-  int size; 
+  int size;
+  int Tam; 
   int Com;
   int Fim;
    T *filaPtr; 
@@ -31,8 +32,9 @@ private:
 
 template< typename T >
 Fila< T >::Fila( int s ):size( s > 0 ? s : 10 ),
-     Com( -1 ),
+     Com( 0 ),
      Fim( -1 ),
+     Tam( 0 ),
      filaPtr( new T[ size ] ) 
 {
 } 
@@ -40,82 +42,65 @@ Fila< T >::Fila( int s ):size( s > 0 ? s : 10 ),
 template< typename T >
 bool Fila< T >::push( const T &pushValue )
 {
-   if ( !isFull() )
-   {
-      filaPtr[ ++Fim ] = pushValue;
-      return true;
-   } 
-
-   return false; 
+   if (isFull())
+      return false;
+   Tam++;
+   Fim = (Fim + 1) % size;
+   filaPtr[ Fim ] = pushValue;
+   return true;
 } 
 
 template< typename T >
 bool Fila< T >::pop( T &popValue )
 {
-   if ( !isEmpty() )
-   {
-      popValue = filaPtr[ ++Com ];
-      return true; 
-   } 
-   return false; 
+   if (isEmpty())
+      return false;
+   Tam--;
+   popValue = filaPtr[ Com ];
+   Com = (Com + 1) % size;
+   return true; 
 } 
 
 template< typename T >
 Fila<T> Fila<T> :: operator+ (Fila<T>& F){
    T sum,x,y;
    Fila <int> F1;
-
-   // while ( this->pop( sum ) )
-   // std::cout << sum << ' ';
-
-   // while ( F.pop( sum ) )
-   // std::cout << sum << ' ';
-
-   while(!this->isEmpty() || !F.isEmpty()){
-      if(!this->isEmpty() && !F.isEmpty()){
-         this->pop(x);
-         // std::cout << x << std::endl;;
-         F.pop(y);
-         // std::cout << y << std::endl;
-         sum = x + y;
-         // std::cout << sum << std::endl;
-         F1.push(sum);
-      }   
-      else if(this->isEmpty() && !F.isEmpty()){
-         F.pop(y);
-         // std::cout << y << std::endl;
-         F1.push(y); 
+   if(!this->isEmpty() && !F.isEmpty()){
+      if(this->Tam >= F.Tam){
+         for(int i = 0; i<=F.Tam; i++){
+            this->pop(x);
+            F.pop(y);
+            sum = x + y;
+            F1.push(sum);
+            this->push(x);
+            F.push(y);
+         }   
+      }else{
+         for(int i = 0; i<=this->Tam; i++){
+            this->pop(x);
+            F.pop(y);
+            sum = x + y;
+            F1.push(sum);
+            this->push(x);
+            F.push(y);
+         }   
       }
-      else if(!this->isEmpty() && F.isEmpty()){
+   }   
+   else if(this->isEmpty() && !F.isEmpty()){
+      for(int i=0; i<=F.Tam;i++){
+         F.pop(y);
+         F1.push(y);
+         F.push(y);
+      } 
+   }
+   else if(!this->isEmpty() && F.isEmpty()){
+      for(int i=0; i<=this->Tam;i++){
          this->pop(x);
-         // std::cout << x << std::endl;
-         F1.push(x); 
+         F1.push(x);
+         this->push(x); 
       }
    }
    return F1;
-
-   // while (this->pop(x) && F.pop(y))
-   // {
-   //    sum = x + y;
-   //    F1.push(sum);
-   // }
-   // if (!this->isEmpty())
-   // {
-   //    F1.push(x);
-   //    while (this->pop(x))
-   //    {
-   //       F1.push(x);
-   //    }
-   // }
-   // if (!F.isEmpty())
-   // {
-   //    F1.push(y);
-   //    while (F.pop(y))
-   //    {
-   //       F1.push(y);
-   //    }
-   // }
-   // return F1;
 }
 
 template< typename T >
