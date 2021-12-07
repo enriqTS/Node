@@ -63,7 +63,7 @@ bool Fila< T >::pop( T &popValue )
 template< typename T >
 Fila<T> Fila<T> :: operator+ (Fila<T>& F){
    T sum,x,y;
-   Fila <int> F1(8);
+   Fila <int> F1;
 
    // while ( this->pop( sum ) )
    // std::cout << sum << ' ';
