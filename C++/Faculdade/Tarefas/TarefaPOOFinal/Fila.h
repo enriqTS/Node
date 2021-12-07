@@ -70,25 +70,48 @@ Fila<T> Fila<T> :: operator+ (Fila<T>& F){
    // while ( F.pop( sum ) )
    // std::cout << sum << ' ';
 
-   while(!this->isEmpty() || !F.isEmpty()){
-      if(!this->isEmpty() && !F.isEmpty()){
-         this->pop(x);
-         std::cout << x << std::endl;;
-         F.pop(y);
-         std::cout << y << std::endl;
-         sum = x + y;
-         std::cout << sum << std::endl;
-         F1.push(sum);
-      }   
-      else if(this->isEmpty() && !F.isEmpty()){
-         F.pop(y);
-         std::cout << y << std::endl;
-         F1.push(y); 
+   // while(!this->isEmpty() || !F.isEmpty()){
+   //    if(!this->isEmpty() && !F.isEmpty()){
+   //       this->pop(x);
+   //       std::cout << x << std::endl;;
+   //       F.pop(y);
+   //       std::cout << y << std::endl;
+   //       sum = x + y;
+   //       std::cout << sum << std::endl;
+   //       F1.push(sum);
+   //    }   
+   //    else if(this->isEmpty() && !F.isEmpty()){
+   //       F.pop(y);
+   //       std::cout << y << std::endl;
+   //       F1.push(y); 
+   //    }
+   //    else if(!this->isEmpty() && F.isEmpty()){
+   //       this->pop(x);
+   //       std::cout << x << std::endl;
+   //       F1.push(x); 
+   //    }
+   // }
+   // return F1;
+
+   while (this->pop(x) && F.pop(y))
+   {
+      sum = x + y;
+      F1.push(sum);
+   }
+   if (!this->isEmpty())
+   {
+      F1.push(x);
+      while (this->pop(x))
+      {
+         F1.push(x);
       }
-      else if(!this->isEmpty() && F.isEmpty()){
-         this->pop(x);
-         std::cout << x << std::endl;
-         F1.push(x); 
+   }
+   if (!F.isEmpty())
+   {
+      F1.push(y);
+      while (F.pop(y))
+      {
+         F1.push(y);
       }
    }
    return F1;
