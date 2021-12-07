@@ -19,7 +19,7 @@ public:
    int Fsize(){
       return size;
    }
-   friend Fila<T> operator+(Fila<T>& F1, Fila<T>& F2);
+   Fila<T> operator+(Fila<T>& F);
        
 private:
   int size; 
@@ -42,10 +42,6 @@ bool Fila< T >::push( const T &pushValue )
    if ( !isFull() )
    {
       filaPtr[ ++Fim ] = pushValue;
-      if( isEmpty() )
-      {
-         filaPtr[ Com ] = pushValue;
-      }
       return true;
    } 
 
@@ -64,30 +60,38 @@ bool Fila< T >::pop( T &popValue )
 } 
 
 template< typename T >
-Fila<T> operator+ (Fila<T>& F1, Fila<T>& F2){
-    int sum;
-    Fila < T > Fila;
+Fila<T> Fila<T> :: operator+ (Fila<T>& F){
+   T sum,x,y;
+   Fila <int> F1(8);
 
-    while(!F1.isEmpty() || !F2.isEmpty()){
-        if(!F1.isEmpty() && !F2.isEmpty()){
-            sum = filaPtr[ F1.ItemFila ] + filaPtr[ F2.ItemFila ];
-            filaPtr[ Fila.ItemFila ] = sum;
-        }
-        else if(F1.isEmpty() && !F2.isEmpty()){
-            filaPtr[ Fila.ItemFila ] = filaPtr[ F2.ItemFila ]; 
-        }
-        else if(!F1.isEmpty() && F2.isEmpty()){
-        filaPtr[ Fila.ItemFila ] = filaPtr[ F1.ItemFila ]; 
-        }
-        if(!F1.isEmpty()){
-            filaPtr[ F1.ItemFila++ ];
-        }
-        if(!F2.isEmpty()){
-            filaPtr[ F2.ItemFila++ ];
-        }
-    }
-    
-    return Fila;
+   // while ( this->pop( sum ) )
+   // std::cout << sum << ' ';
+
+   // while ( F.pop( sum ) )
+   // std::cout << sum << ' ';
+
+   while(!this->isEmpty() || !F.isEmpty()){
+      if(!this->isEmpty() && !F.isEmpty()){
+         this->pop(x);
+         std::cout << x << std::endl;;
+         F.pop(y);
+         std::cout << y << std::endl;
+         sum = x + y;
+         std::cout << sum << std::endl;
+         F1.push(sum);
+      }   
+      else if(this->isEmpty() && !F.isEmpty()){
+         F.pop(y);
+         std::cout << y << std::endl;
+         F1.push(y); 
+      }
+      else if(!this->isEmpty() && F.isEmpty()){
+         this->pop(x);
+         std::cout << x << std::endl;
+         F1.push(x); 
+      }
+   }
+   return F1;
 }
 
 #endif
