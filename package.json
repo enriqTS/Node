@@ -1,0 +1,24 @@
+{
+  "name": "programacaow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node JS/module-example/https.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enriqTS/ProgramacaoW.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enriqTS/ProgramacaoW/issues"
+  },
+  "homepage": "https://github.com/enriqTS/ProgramacaoW#readme",
+  "dependencies": {
+    "axios": "^0.25.0"
+  }
+}

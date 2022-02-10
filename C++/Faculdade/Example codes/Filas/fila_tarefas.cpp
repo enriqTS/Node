@@ -75,8 +75,7 @@ Fila Concatena(Fila& F1, Fila& F2){
 
 void RemoveNegativo(Fila& F){
    int valor;
-   int tam = F.Nro;
-   for(int i = 1; i <= tam; i++){
+   for(int i = 1; i <= F.Nro; i++){
       RetiraFila(F, valor);
       if(valor >= 0){
          InsereFila(F, valor);
@@ -87,14 +86,13 @@ void RemoveNegativo(Fila& F){
 float MediaFila(Fila& F){
    float soma = 0;
    int valor;
-   int tam = F.Nro;
-   for(int i = 0; i < tam; i++){
+   for(int i = 0; i < F.Nro; i++){
       RetiraFila(F, valor);
       soma = soma + valor;
       InsereFila(F, valor); 
    }
-   cout << (soma/tam) << endl;
-   return (soma/tam);
+   cout << (soma/F.Nro) << endl;
+   return (soma/F.Nro);
 }
 
 NoPtr Primeiro(Fila& F){
