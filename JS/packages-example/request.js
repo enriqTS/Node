@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-axios.get('https://www.google.com')
+axios.get('https://google.com')
     .then((response) => {
         console.log(response);
     })
