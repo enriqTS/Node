@@ -79,7 +79,7 @@ int Maior(Arvore A){
    if(A->dir)
       return Maior(A->dir);
    else  
-      return A->Info;   
+      return A->Info;  
 }
 
 bool Busca(Arvore A, int Info){
