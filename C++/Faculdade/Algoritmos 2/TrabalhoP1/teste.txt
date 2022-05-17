@@ -1,0 +1,6 @@
+abc ába aba abá 
+abc! ába, aba! abá 
+abc ába! aba abá 
+abc ába* aba* 
+ab  ába!!* aba abá 
+abc? ába, aba. 
