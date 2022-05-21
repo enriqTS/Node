@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "Lists": "python",
+        "Tuples": "python",
+        "Comparison lists and tuples": "python",
+        "Dicktionaries": "python",
+        "Sets": "python",
+        "String": "python",
+        "Collections": "python",
+        "Itertools": "python",
+        "Lambda": "python",
+        "Exceptions": "python",
+        "Logging": "python",
+        "Helper": "python",
+        "xstring": "cpp"
+    }
+}
